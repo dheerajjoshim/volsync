@@ -62,6 +62,7 @@ type Mover struct {
 	serviceAnnotations   map[string]string
 	address              *string
 	port                 *int32
+	inplace              bool
 	isSource             bool
 	paused               bool
 	mainPVCName          *string
@@ -373,6 +374,9 @@ func (m *Mover) ensureJob(ctx context.Context, dataPVC *corev1.PersistentVolumeC
 			// Set dest address/port if necessary
 			if m.address != nil {
 				containerEnv = append(containerEnv, corev1.EnvVar{Name: "DESTINATION_ADDRESS", Value: *m.address})
+			}
+			if m.inplace {
+				containerEnv = append(containerEnv, corev1.EnvVar{Name: "INPLACE_OPTION", Value: "--inplace"})
 			}
 			if m.port != nil {
 				connectPort := strconv.Itoa(int(*m.port))

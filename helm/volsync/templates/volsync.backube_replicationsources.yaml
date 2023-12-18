@@ -457,6 +457,9 @@ spec:
                         - Clone
                         - Snapshot
                       type: string
+                    inplace:
+                      description: update destination files in-place without creating a termporary file. Default false
+                      type: boolean
                     keySecret:
                       description: keySecret is the name of a Secret that contains the TLS pre-shared key to be used for authentication. If not provided, the key will be generated.
                       type: string

@@ -904,6 +904,11 @@ func (in *ReplicationSourceRsyncTLSSpec) DeepCopyInto(out *ReplicationSourceRsyn
 		*out = new(int32)
 		**out = **in
 	}
+	if in.InPlace != nil {
+		in, out := &in.InPlace, &out.InPlace
+		*out = new(bool)
+		**out = **in
+	}
 	if in.MoverSecurityContext != nil {
 		in, out := &in.MoverSecurityContext, &out.MoverSecurityContext
 		*out = new(v1.PodSecurityContext)

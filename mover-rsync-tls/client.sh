@@ -3,6 +3,7 @@
 set -e -o pipefail
 
 DESTINATION_PORT="${DESTINATION_PORT:-8000}"
+INPLACE_OPTION="${INPLACE_OPTION:-}"
 if [[ -z "$DESTINATION_ADDRESS" ]]; then
     echo "Remote host address must be provided in DESTINATION_ADDRESS"
     exit 1
@@ -76,7 +77,7 @@ while [[ $rc -ne 0 && $RETRY -lt $MAX_RETRIES ]]; do
     shopt -s dotglob  # Make * include dotfiles
     if [[ -n "$(ls -A -- ${SOURCE}/*)" ]]; then
         # 1st run preserves as much as possible, but excludes the root directory
-        rsync -aAhHSxz --exclude=lost+found --itemize-changes --info=stats2,misc2 ${SOURCE}/* rsync://127.0.0.1:$STUNNEL_LISTEN_PORT/data
+        rsync -aAhHSxz --exclude=lost+found --itemize-changes --info=stats2,misc2 ${INPLACE_OPTION} ${SOURCE}/* rsync://127.0.0.1:$STUNNEL_LISTEN_PORT/data
     else
         echo "Skipping sync of empty source directory"
     fi

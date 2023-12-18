@@ -54,6 +54,9 @@ type ReplicationSourceRsyncTLSSpec struct {
 	//+kubebuilder:validation:Maximum=65535
 	//+optional
 	Port *int32 `json:"port,omitempty"`
+	// update destination files in-place without creating a termporary file. Default false
+	//+optional
+	InPlace *bool `json:"inplace,omitempty"`
 	// MoverSecurityContext allows specifying the PodSecurityContext that will
 	// be used by the data mover
 	MoverSecurityContext *corev1.PodSecurityContext `json:"moverSecurityContext,omitempty"`
